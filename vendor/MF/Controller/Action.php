@@ -9,7 +9,7 @@ abstract class Action {
     $this->view = new \stdClass();
   }
 
-  protected function render($layout, $page) {
+  protected function render($page, $layout = 'layout') {
     $this->view->page = $page;
 
     $layout_path = "../App/Views/{$layout}.phtml";

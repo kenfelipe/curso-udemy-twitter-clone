@@ -9,11 +9,11 @@ use MF\Model\Container;
 class IndexController extends Action {
 
   public function index() {
-    $this->render('layout', 'index');
+    $this->render('index');
   }
 
   public function subscribe() {
-    $this->render('layout', 'subscribe');
+    $this->render('subscribe');
   }
 }
 
