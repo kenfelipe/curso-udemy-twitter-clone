@@ -8,15 +8,15 @@ class Route extends Bootstrap {
 
   protected function initRoutes() {
     $routes = [
-      'home' => [
+      'index' => [
         'route' => '/',
         'controller' => 'IndexController',
         'action' => 'index',
       ],
-      'about' => [
-        'route' => '/about',
+      'subscribe' => [
+        'route' => '/subscribe',
         'controller' => 'IndexController',
-        'action' => 'about',
+        'action' => 'subscribe',
       ],
     ];
 
