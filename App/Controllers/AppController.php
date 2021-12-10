@@ -43,6 +43,27 @@ class AppController extends Action {
 
     header('Location: /timeline');
   }
+  
+  public function following() {
+    $this->authorization();
+
+    $this->render('following');
+  }
+
+  public function search_follow() {
+    $this->authorization();
+
+    $user = Container::getModel('User');
+
+    $result = $user->search($_POST['search_string']);
+
+    $this->view->search_result = $result;
+
+    $this->render('following');
+    // echo '<pre>';
+    // print_r($result);
+    // echo '</pre>';
+  }
 }
 
 ?>

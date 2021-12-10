@@ -43,6 +43,16 @@ class Route extends Bootstrap {
         'controller' => 'AppController',
         'action' => 'tweet',
       ],
+      'following' => [
+        'route' => '/following',
+        'controller' => 'AppController',
+        'action' => 'following',
+      ],
+      'search_follow' => [
+        'route' => '/search_follow',
+        'controller' => 'AppController',
+        'action' => 'search_follow',
+      ],
     ];
 
     $this->setRoutes($routes);
