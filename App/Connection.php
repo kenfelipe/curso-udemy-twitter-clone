@@ -4,7 +4,7 @@ namespace App;
 
 class Connection {
   public static function getDB() {
-    $dsn = 'mysql:host=localhost;dbname=?????;charset=utf8';
+    $dsn = 'mysql:host=localhost;dbname=udemy_twitter_clone;charset=utf8';
     $user = 'root';
     $pass = '';
 
