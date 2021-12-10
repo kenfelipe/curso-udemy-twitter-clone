@@ -22,6 +22,10 @@ class AppController extends Action {
   public function timeline() {
     $this->authorization();
 
+    $tweet = Container::getModel('Tweet');
+
+    $this->view->tweets = $tweet->retriveTweets($_SESSION['id']);
+
     $this->render('timeline');
   }
 
