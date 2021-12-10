@@ -24,6 +24,21 @@ class AppController extends Action {
 
     $this->render('timeline');
   }
+
+  public function tweet() {
+    $this->authorization();
+
+    $tweet = Container::getModel('Tweet');
+
+    $tweet->__set('user_id', $_SESSION['id']);
+    $tweet->__set('tweet', $_POST['tweet']);
+
+    if($tweet->validation()) {
+      $tweet->tweet();
+    }
+
+    header('Location: /timeline');
+  }
 }
 
 ?>

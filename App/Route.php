@@ -38,6 +38,11 @@ class Route extends Bootstrap {
         'controller' => 'AppController',
         'action' => 'timeline',
       ],
+      'tweet' => [
+        'route' => '/tweet',
+        'controller' => 'AppController',
+        'action' => 'tweet',
+      ],
     ];
 
     $this->setRoutes($routes);
