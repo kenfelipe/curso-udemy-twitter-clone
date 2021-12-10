@@ -23,6 +23,21 @@ class Route extends Bootstrap {
         'controller' => 'AuthController',
         'action' => 'register',
       ],
+      'login' => [
+        'route' => '/login',
+        'controller' => 'AuthController',
+        'action' => 'login',
+      ],
+      'logout' => [
+        'route' => '/logout',
+        'controller' => 'AuthController',
+        'action' => 'logout',
+      ],
+      'timeline' => [
+        'route' => '/timeline',
+        'controller' => 'AppController',
+        'action' => 'timeline',
+      ],
     ];
 
     $this->setRoutes($routes);

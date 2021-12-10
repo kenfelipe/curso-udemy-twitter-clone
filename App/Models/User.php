@@ -37,6 +37,21 @@ class User extends Model {
 
     return $setName && $setEmail && $setPassword;
   }
+  
+  public function login() {
+    $query = '
+      SELECT id, name, email
+      FROM users
+      WHERE email = :email AND password = :password
+    ';
+    
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':email', $this->email);
+    $stmt->bindValue(':password', $this->password);
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
 }
 
 ?>
