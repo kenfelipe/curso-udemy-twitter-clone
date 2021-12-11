@@ -16,7 +16,9 @@ class AuthController extends Action {
 
     if($user->validator()) {
       $user->register();
-      header('Location: /');
+
+      header('Location: /registered');
+
     } else {
       header('Location: /subscribe?register=error');
     }

@@ -23,6 +23,11 @@ class Route extends Bootstrap {
         'controller' => 'AuthController',
         'action' => 'register',
       ],
+      'registered' => [
+        'route' => '/registered',
+        'controller' => 'IndexController',
+        'action' => 'registered',
+      ],
       'login' => [
         'route' => '/login',
         'controller' => 'AuthController',

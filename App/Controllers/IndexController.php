@@ -15,6 +15,10 @@ class IndexController extends Action {
   public function subscribe() {
     $this->render('subscribe');
   }
+
+  public function registered() {
+    $this->render('registered');
+  }
 }
 
 ?>
