@@ -58,6 +58,16 @@ class Route extends Bootstrap {
         'controller' => 'AppController',
         'action' => 'search_follow',
       ],
+      'follow' => [
+        'route' => '/follow',
+        'controller' => 'AppController',
+        'action' => 'follow',
+      ],
+      'unfollow' => [
+        'route' => '/unfollow',
+        'controller' => 'AppController',
+        'action' => 'unfollow',
+      ],
     ];
 
     $this->setRoutes($routes);

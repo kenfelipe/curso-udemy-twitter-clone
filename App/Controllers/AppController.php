@@ -47,6 +47,8 @@ class AppController extends Action {
   public function following() {
     $this->authorization();
 
+    $this->view->search_result = array();
+
     $this->render('following');
   }
 
@@ -55,14 +57,36 @@ class AppController extends Action {
 
     $user = Container::getModel('User');
 
-    $result = $user->search($_POST['search_string']);
+    if(!empty($_POST['search_string'])) {
+      $result = $user->search($_POST['search_string'], $_SESSION['id']);
 
-    $this->view->search_result = $result;
+      $this->view->search_result = $result;
+
+    } else {
+      $this->view->search_result = array();
+    }
 
     $this->render('following');
-    // echo '<pre>';
-    // print_r($result);
-    // echo '</pre>';
+  }
+
+  public function follow() {
+    $this->authorization();
+
+    $following = Container::getModel('Following');
+
+    $following->follow($_SESSION['id'], $_GET['target_id']);
+
+    header('Location: /following');
+  }
+
+  public function unfollow() {
+    $this->authorization();
+
+    $following = Container::getModel('Following');
+
+    $following->unfollow($_SESSION['id'], $_GET['target_id']);
+
+    header('Location: /following');
   }
 }
 

@@ -1,0 +1,5 @@
+CREATE TABLE following (
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  follow_id INT NOT NULL
+);
