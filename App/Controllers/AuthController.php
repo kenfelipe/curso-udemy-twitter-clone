@@ -14,13 +14,24 @@ class AuthController extends Action {
     $user->__set('email', $_POST['email']);
     $user->__set('password', $_POST['password']);
 
-    if($user->validator()) {
+    $valid = $user->validator();
+    $exists = $user->existsUser();
+
+    if($valid && !$exists) {
       $user->register();
 
       header('Location: /registered');
 
     } else {
-      header('Location: /subscribe?register=error');
+      $error = $exists ? 'exists' : 'invalid';
+
+      $name = "&name={$_POST['name']}";
+      $email = "&email={$_POST['email']}";
+      $password = "&password={$_POST['password']}";
+
+      $placeholder = $name . $email . $password;
+
+      header("Location: /subscribe?register={$error}" . $placeholder);
     }
   }
 

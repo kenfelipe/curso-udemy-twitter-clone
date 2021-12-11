@@ -30,6 +30,20 @@ class User extends Model {
     $stmt->execute();
   }
 
+  public function existsUser() {
+    $query = '
+      SELECT *
+      FROM users
+      WHERE email = :email
+    ';
+    
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':email', $this->email);
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
+
   public function validator() {
     $setName = !empty($this->name);
     $setEmail = !empty($this->email);

@@ -18,15 +18,16 @@
             
             <form action="/register" method="post">
               <div class="form-group">
-                <input name="name" type="text" class="form-control" placeholder="Nome">
+                <input name="name" 
+                value="<?= isset($_GET['name']) ? $_GET['name'] : '' ?>" type="text" class="form-control" placeholder="Nome">
               </div>
               
               <div class="form-group">
-                <input name="email" type="text" class="form-control" placeholder="E-mail">
+                <input name="email" value="<?= isset($_GET['email']) ? $_GET['email'] : '' ?>" type="text" class="form-control" placeholder="E-mail">
               </div>
 
               <div class="form-group">
-                <input name="password" type="password" class="form-control" placeholder="Senha">
+                <input name="password" value="<?= isset($_GET['password']) ? $_GET['password'] : '' ?>" type="password" class="form-control" placeholder="Senha">
               </div>
               
               <div class="mt-4 mb-4">
@@ -35,6 +36,18 @@
                 </small>
               </div>
               <button type="submit" class="btn btn-primary btn-block">Inscrever-se</button>
+
+              <?php if(isset($_GET['register']) && $_GET['register'] == 'invalid') {?>
+                <div class="mt-4">
+                  <span class="text-danger">Invalid:)</span>
+                </div>
+              <?php } ?>
+
+              <?php if(isset($_GET['register']) && $_GET['register'] == 'exists') {?>
+                <div class="mt-4">
+                  <span class="text-danger">Already exists:)</span>
+                </div>
+              <?php } ?>
 
             </form>
 
