@@ -18,6 +18,22 @@ class Tweet extends Model {
     return $this->$attr;
   }
 
+  public function tweet() {
+    $query = '
+      INSERT INTO tweets (user_id, tweet)
+      VALUES (:user_id, :tweet)
+    ';
+    
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':user_id', $this->user_id);
+    $stmt->bindValue(':tweet', $this->tweet);
+    $stmt->execute();
+  }
+
+  public function validation() {
+    return !empty($this->tweet);
+  }
+
   public function retriveTweets($user_id) {
     $query = "
       SELECT 
@@ -60,22 +76,6 @@ class Tweet extends Model {
     $stmt->execute();
     
     return $stmt->fetch(\PDO::FETCH_ASSOC)['tweets_count'];
-  }
-
-  public function tweet() {
-    $query = '
-      INSERT INTO tweets (user_id, tweet)
-      VALUES (:user_id, :tweet)
-    ';
-    
-    $stmt = $this->db->prepare($query);
-    $stmt->bindValue(':user_id', $this->user_id);
-    $stmt->bindValue(':tweet', $this->tweet);
-    $stmt->execute();
-  }
-
-  public function validation() {
-    return !empty($this->tweet);
   }
 
   public function remove($tweet_id) {
