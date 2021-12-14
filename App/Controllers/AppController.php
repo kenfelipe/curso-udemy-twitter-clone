@@ -19,18 +19,25 @@ class AppController extends Action {
     }
   }
 
-  public function timeline() {
-    $this->authorization();
-
+  public function getTimelineInfo() {
     $tweet = Container::getModel('Tweet');
 
-    $this->view->tweets = $tweet->retriveTweets($_SESSION['id']);
     $this->view->tweetsCount = $tweet->getMyTweetsCount($_SESSION['id']);
 
     $following = Container::getModel('Following');
 
     $this->view->followCount = $following->getMyFollowCount($_SESSION['id']);
     $this->view->followerCount = $following->getMyFollowerCount($_SESSION['id']);
+  }
+
+  public function timeline() {
+    $this->authorization();
+
+    $tweet = Container::getModel('Tweet');
+
+    $this->view->tweets = $tweet->retriveTweets($_SESSION['id']);
+
+    $this->getTimelineInfo();
 
     $this->render('timeline');
   }
@@ -64,6 +71,8 @@ class AppController extends Action {
 
     $this->view->search_result = array();
 
+    $this->getTimelineInfo();
+
     $this->render('following');
   }
 
@@ -80,6 +89,8 @@ class AppController extends Action {
     } else {
       $this->view->search_result = array();
     }
+
+    $this->getTimelineInfo();
 
     $this->render('following');
   }
