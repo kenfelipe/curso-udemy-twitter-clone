@@ -27,11 +27,17 @@ class Tweet extends Model {
         tweets 
         LEFT JOIN users on (tweets.user_id = users.id)
       WHERE 
-        user_id = :user_id
+        users.id = :user_id 
+        OR
+        tweets.user_id IN (
+          SELECT following.follow_id
+          FROM following
+          WHERE following.user_id = :user_id
+        )
       ORDER BY
-        tweets.tweet_date desc
+        tweets.tweet_date DESC
     ";
-    
+
     $stmt = $this->db->prepare($query);
     $stmt->bindValue(':user_id', $user_id);
     $stmt->execute();
