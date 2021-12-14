@@ -20,6 +20,10 @@ class AppController extends Action {
   }
 
   public function getTimelineInfo() {
+    $user = Container::getModel('User');
+
+    $this->view->userInfo = $user->getUserInfo($_SESSION['id']);
+
     $tweet = Container::getModel('Tweet');
 
     $this->view->tweetsCount = $tweet->getMyTweetsCount($_SESSION['id']);

@@ -93,6 +93,18 @@ class User extends Model {
     
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
+
+  public function getUserInfo($user_id) {
+    $query = '
+      SELECT * FROM users WHERE id = :user_id
+    ';
+    
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':user_id', $user_id);
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
 }
 
 ?>
