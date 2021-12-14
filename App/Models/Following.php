@@ -32,6 +32,34 @@ class Following extends Model {
     $stmt->bindValue(':target_id', $target_id);
     $stmt->execute();
   }
+
+  public function getMyFollowCount($user_id) {
+    $query = '
+      SELECT Count(*) as follow_count
+      FROM following
+      WHERE user_id = :user_id
+    ';
+    
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':user_id', $user_id);
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC)['follow_count'];
+  }
+
+  public function getMyFollowerCount($user_id) {
+    $query = '
+      SELECT Count(*) as follower_count
+      FROM following 
+      WHERE follow_id = :user_id
+    ';
+    
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':user_id', $user_id);
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC)['follower_count'];
+  }
 }
 
 ?>

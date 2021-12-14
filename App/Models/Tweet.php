@@ -45,6 +45,23 @@ class Tweet extends Model {
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
 
+  public function getMyTweetsCount($user_id) {
+    $query = "
+      SELECT 
+        Count(*) as tweets_count
+      FROM 
+        tweets 
+      WHERE 
+        tweets.user_id = :user_id 
+    ";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':user_id', $user_id);
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC)['tweets_count'];
+  }
+
   public function tweet() {
     $query = '
       INSERT INTO tweets (user_id, tweet)

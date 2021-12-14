@@ -25,6 +25,12 @@ class AppController extends Action {
     $tweet = Container::getModel('Tweet');
 
     $this->view->tweets = $tweet->retriveTweets($_SESSION['id']);
+    $this->view->tweetsCount = $tweet->getMyTweetsCount($_SESSION['id']);
+
+    $following = Container::getModel('Following');
+
+    $this->view->followCount = $following->getMyFollowCount($_SESSION['id']);
+    $this->view->followerCount = $following->getMyFollowerCount($_SESSION['id']);
 
     $this->render('timeline');
   }
