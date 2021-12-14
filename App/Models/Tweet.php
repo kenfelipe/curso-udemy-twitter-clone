@@ -21,7 +21,7 @@ class Tweet extends Model {
   public function retriveTweets($user_id) {
     $query = "
       SELECT 
-        tweets.id, users.name, tweets.tweet, 
+        users.id as user_id, users.name, tweets.id, tweets.tweet, 
         DATE_FORMAT(tweets.tweet_date, '%d/%m/%Y %H:%i') as tweet_date
       FROM 
         tweets 
@@ -59,6 +59,19 @@ class Tweet extends Model {
 
   public function validation() {
     return !empty($this->tweet);
+  }
+
+  public function remove($tweet_id) {
+    $query = '
+      DELETE FROM tweets
+      WHERE tweets.id = :tweet_id
+    ';
+    
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':tweet_id', $tweet_id);
+    $stmt->execute();
+    
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
 }
 

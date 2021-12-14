@@ -48,6 +48,11 @@ class Route extends Bootstrap {
         'controller' => 'AppController',
         'action' => 'tweet',
       ],
+      'remove' => [
+        'route' => '/remove',
+        'controller' => 'AppController',
+        'action' => 'remove',
+      ],
       'following' => [
         'route' => '/following',
         'controller' => 'AppController',

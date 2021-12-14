@@ -43,6 +43,15 @@ class AppController extends Action {
 
     header('Location: /timeline');
   }
+
+  public function remove() {
+    $this->authorization();
+
+    $tweet = Container::getModel('Tweet');
+    $tweet->remove($_POST['tweet_id']);
+
+    header('Location: /timeline');
+  }
   
   public function following() {
     $this->authorization();
