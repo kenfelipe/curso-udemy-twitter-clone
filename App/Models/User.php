@@ -45,11 +45,11 @@ class User extends Model {
   }
 
   public function validator() {
-    $setName = !empty($this->name);
-    $setEmail = !empty($this->email);
-    $setPassword = !empty($this->password);
+    $isset_name = !empty($this->name);
+    $isset_email = !empty($this->email);
+    $isset_password = !empty($this->password);
 
-    return $setName && $setEmail && $setPassword;
+    return $isset_name && $isset_email && $isset_password;
   }
   
   public function login() {

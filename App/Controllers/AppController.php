@@ -10,11 +10,11 @@ class AppController extends Action {
   public function authorization() {
     session_start();
 
-    $emptyId = empty($_SESSION['id']);
-    $emptyName = empty($_SESSION['name']);
-    $emptyEmail = empty($_SESSION['email']);
+    $is_empty_id = empty($_SESSION['id']);
+    $is_empty_name = empty($_SESSION['name']);
+    $is_empty_email = empty($_SESSION['email']);
 
-    if($emptyId || $emptyName || $emptyEmail) {
+    if($is_empty_id || $is_empty_name || $is_empty_email) {
       header('Location: /');
     }
   }
