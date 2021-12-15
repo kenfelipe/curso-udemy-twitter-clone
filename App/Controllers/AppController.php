@@ -39,7 +39,14 @@ class AppController extends Action {
 
     $tweet = Container::getModel('Tweet');
 
-    $this->view->tweets = $tweet->retriveTweets($_SESSION['id']);
+    $this->view->pagination = isset($_GET['pagination']) ? $_GET['pagination'] : 1;
+
+    $limit = 3;
+    $offset = $limit * ($this->view->pagination - 1);
+
+    $this->view->tweets = $tweet->retriveTweetsPerPage($_SESSION['id'], $limit, $offset);
+
+    $this->view->lastPagination = ceil($tweet->getTweetsCount($_SESSION['id']) / $limit);
 
     $this->getTimelineInfo();
 

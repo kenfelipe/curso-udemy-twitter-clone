@@ -111,6 +111,89 @@
 				</div>
 			</div> -->
 
+			<div class="row mt-4 mb-3">
+				<div class="col">
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+
+							<li class="page-item">
+								<a class="page-link" href="?pagination=1" tabindex="-1">First</a>
+							</li>
+
+							<li class="page-item <?= 
+								$this->view->pagination - 1 < 1 ? 'disabled' : '' 
+							?>">
+								<a 
+									class="page-link"
+									href="?pagination=<?= $this->view->pagination - 1 ?>" 
+									aria-label="Previous"
+								>
+									<span aria-hidden="true">&laquo;</span>
+									<span class="sr-only">Previous</span>
+								</a>
+							</li>
+
+							<?php 
+								$range = 2;
+
+								$paginationItems = array(
+									$this->view->pagination
+								);
+
+								for($i = 1; $i <= $range; $i++) {
+									if($this->view->pagination - $i < 1) {
+										break;
+									}
+									array_unshift($paginationItems, $this->view->pagination - $i);
+								}
+
+								for($i = 1; $i <= $range; $i++) {
+									if($this->view->pagination + $i > $this->view->lastPagination) {
+										break;
+									}
+									array_push($paginationItems, $this->view->pagination + $i);
+								}
+							?>
+
+							<?php foreach($paginationItems as $item) { ?>
+								<li class="page-item  <?=
+									$this->view->pagination == $item ? 'active' : ''
+								?>">
+									<a 
+										class="page-link" 
+										href="?pagination=<?= $item ?>"
+									>
+										<?= $item ?>
+									</a>
+								</li>
+							<?php } ?>
+
+							<li class="page-item <?= 
+								$this->view->pagination >= $this->view->lastPagination ? 'disabled' : '' 
+							?>">
+								<a 
+									class="page-link" 
+									href="?pagination=<?= $this->view->pagination + 1 ?>" 
+									aria-label="Next"
+								>
+									<span aria-hidden="true">&raquo;</span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
+
+							<li class="page-item">
+								<a 
+									class="page-link" 
+									href="?pagination=<?= $this->view->lastPagination ?>"
+								>
+									Last
+								</a>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+			</div>
 
 		</div>
 

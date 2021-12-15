@@ -61,6 +61,65 @@ class Tweet extends Model {
     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
 
+  public function retriveTweetsPerPage($user_id, $limit = 10, $offset = 0) {
+    $query = "
+      SELECT 
+        users.id as user_id, users.name, tweets.id, tweets.tweet, 
+        DATE_FORMAT(tweets.tweet_date, '%d/%m/%Y %H:%i') as tweet_date
+      FROM 
+        tweets 
+        LEFT JOIN users on (tweets.user_id = users.id)
+      WHERE 
+        users.id = :user_id 
+        OR
+        tweets.user_id IN (
+          SELECT following.follow_id
+          FROM following
+          WHERE following.user_id = :user_id
+        )
+      ORDER BY
+        tweets.tweet_date DESC
+      LIMIT
+        :limit
+      OFFSET
+        :offset
+    ";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':user_id', $user_id);
+    $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  public function getTweetsCount($user_id) {
+    $query = "
+      SELECT 
+        Count(*) as tweets_count
+      FROM 
+        tweets 
+        LEFT JOIN users on (tweets.user_id = users.id)
+      WHERE 
+        users.id = :user_id 
+        OR
+        tweets.user_id IN (
+          SELECT following.follow_id
+          FROM following
+          WHERE following.user_id = :user_id
+        )
+      ORDER BY
+        tweets.tweet_date DESC
+    ";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':user_id', $user_id);
+    $stmt->execute();
+    
+    return $stmt->fetch(\PDO::FETCH_ASSOC)['tweets_count'];
+  }
+
   public function getMyTweetsCount($user_id) {
     $query = "
       SELECT 
